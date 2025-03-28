@@ -1,6 +1,6 @@
 {
-  "name": "PWA Next.js",
-  "short_name": "pwa-nextjs",
+  "name": "Gym member portal",
+  "short_name": "Gym member portal",
   "theme_color": "#35155D",
   "background_color": "#ffffff",
   "display": "standalone",
@@ -20,6 +20,5 @@
       "type": "image/png",
       "purpose": "maskable any"
     }
-  ],
-  "splash_pages": null
+  ]
 }
