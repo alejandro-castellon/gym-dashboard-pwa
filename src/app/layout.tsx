@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { geistSans, geistMono } from "@/fonts";
 import "@/styles/globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Gym member portal",
@@ -45,7 +46,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <Toaster richColors position="bottom-center" />
+        <Suspense fallback={null}>
+          <Toaster richColors position="bottom-center" />
+        </Suspense>
       </body>
     </html>
   );
