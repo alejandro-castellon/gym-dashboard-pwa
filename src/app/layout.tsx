@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { geistSans, geistMono } from "@/fonts";
+import "@/styles/globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Gym member portal",
@@ -45,7 +36,7 @@ export default function RootLayout({
   const viewport = generateViewport();
 
   return (
-    <html lang="en" className={viewport.themeColor ? "dark-theme" : ""}>
+    <html lang="es" className={viewport.themeColor ? "dark-theme" : ""}>
       <head>
         <meta name="viewport" content={viewport.viewport} />
         <meta name="theme-color" content={viewport.themeColor?.[0]?.color} />
@@ -54,6 +45,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster richColors position="bottom-center" />
       </body>
     </html>
   );
