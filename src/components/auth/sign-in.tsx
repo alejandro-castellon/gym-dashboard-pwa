@@ -15,11 +15,21 @@ import { cn } from "@/lib/utils";
 import Google from "@/components/auth/google";
 import { SubmitButton } from "../ui/submit-button";
 import { useToastFromSearchParams } from "@/components/ui/toast";
+import { Suspense } from "react";
+
+// Componente que usa useSearchParams
+function ToastHandler() {
+  useToastFromSearchParams();
+  return null;
+}
 
 export default function SignIn() {
-  useToastFromSearchParams();
   return (
     <Card className="max-w-md w-full mx-auto rounded-3xl p-4 md:p-8 shadow-input">
+      <Suspense fallback={null}>
+        <ToastHandler />
+      </Suspense>
+
       <CardHeader>
         <CardTitle>
           <h1 className="text-2xl font-medium mb-3">Iniciar sesión</h1>
