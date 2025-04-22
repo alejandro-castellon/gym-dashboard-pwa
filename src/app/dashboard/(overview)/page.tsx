@@ -10,9 +10,10 @@ import ClientInfo from "@/components/dashboard/client-info";
 import AttendanceTracker from "@/components/dashboard/attendance-tracker";
 import MembershipHistory from "@/components/dashboard/membership-history";
 import { Attendance } from "@/types";
-import { signOutAction } from "@/lib/supabase/actions";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 
-export default async function MemberDashboard() {
+async function MemberDashboard() {
   const user: User = await getUser();
   const memberships: Membership[] =
     (await getUserMemberships(user.email)) || [];
@@ -32,12 +33,6 @@ export default async function MemberDashboard() {
 
   return (
     <main className="space-y-6">
-      <button
-        onClick={signOutAction}
-        className="bg-blue-500 text-white p-2 rounded mt-2 w-72 hover:cursor-pointer"
-      >
-        Cerrar sesión
-      </button>
       <Card className="p-6">
         <ClientInfo client={user} isActive={isActive()} />
       </Card>
@@ -59,5 +54,12 @@ export default async function MemberDashboard() {
         </TabsContent>
       </Tabs>
     </main>
+  );
+}
+export default function Page() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <MemberDashboard />
+    </Suspense>
   );
 }

@@ -61,3 +61,22 @@ export const getUserCheckins = async (
 
   return data;
 };
+
+export const getActiveUserMembership = async (): Promise<Membership> => {
+  const supabase = await createClient();
+  // Obtener el usuario autenticado
+  const user = await getAuthenticatedUser();
+
+  // Obtener la membresía del usuario
+  const { data } = await supabase
+    .from("active_memberships")
+    .select("*, gyms(name, hours, is_open)")
+    .eq("user_email", user.email)
+    .single();
+
+  if (!data) {
+    return {} as Membership;
+  }
+
+  return data;
+};

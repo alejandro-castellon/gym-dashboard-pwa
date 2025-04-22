@@ -176,3 +176,57 @@ export const signOutAction = async () => {
   await supabase.auth.signOut();
   return redirect("/");
 };
+
+export const updateProfile = async (formData: FormData) => {
+  const supabase = await createClient();
+  const name = formData.get("name")?.toString();
+  const ci = formData.get("ci")?.toString();
+  const fecha_nacimiento = formData.get("fecha_nacimiento")?.toString();
+  const id = formData.get("id")?.toString();
+  const phone = formData.get("phone")?.toString();
+  const gender = formData.get("gender")?.toString();
+
+  // Convertir la fecha de nacimiento a formato Date si es necesario
+  if (!fecha_nacimiento) {
+    return encodedRedirect(
+      "error",
+      "/dashboard/profile",
+      "Fecha de nacimiento no válida"
+    );
+  }
+  const birthDate = new Date(fecha_nacimiento);
+  if (isNaN(birthDate.getTime())) {
+    return encodedRedirect(
+      "error",
+      "/dashboard/profile",
+      "Fecha de nacimiento no válida"
+    );
+  }
+
+  // Actualizar el perfil en la base de datos
+  const { error } = await supabase
+    .from("users")
+    .update({
+      name,
+      ci,
+      fecha_nacimiento: birthDate.toISOString(),
+      phone,
+      gender,
+    })
+    .eq("id", id);
+
+  if (error) {
+    console.error(error.message);
+    return encodedRedirect(
+      "error",
+      "/dashboard/profile",
+      "No se pudo actualizar el perfil"
+    );
+  }
+
+  return encodedRedirect(
+    "success",
+    "/dashboard/profile",
+    "Perfil actualizado correctamente"
+  );
+};
