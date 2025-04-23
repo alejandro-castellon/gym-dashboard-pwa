@@ -11,7 +11,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import Google from "@/components/auth/google";
 import { SubmitButton } from "../ui/submit-button";
 import { useToastFromSearchParams } from "@/components/ui/toast";
 import { Suspense } from "react";
@@ -34,9 +33,7 @@ export default function SignUp() {
           <h1 className="text-2xl font-medium mb-3">Crea tu cuenta</h1>
         </CardTitle>
         <CardDescription>
-          <div className="flex justify-center">
-            <Google />
-          </div>
+          <div className="flex justify-center"></div>
         </CardDescription>
       </CardHeader>
       <div className="flex items-center justify-center my-4">
